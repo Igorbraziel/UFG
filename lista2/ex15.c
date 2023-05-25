@@ -1,13 +1,13 @@
 #include <stdio.h>
 
 int main(){
-    int n, n1, n2=284, div1=1, div2=1, cont1=0, soma1 = 0, soma2 = 0;
+    int n, n1, n2=2, div1=1, div2=1, cont1=0, soma1 = 0, soma2 = 0, cont=0;
     scanf("%d", &n);
     if(n<1 || n>=9){
         return 0;
     }
-        while(1){
-            for(n1=220;n1<n2;n1++){
+        while(cont<n){
+            for(n1=1;n1<n2;n1++){
                 if(n1%div1 == 0 && n1 != div1){
                     soma1 += div1;
                 }
@@ -19,9 +19,10 @@ int main(){
                 }
                 div1++;
                 div2++;
-
             }   
+            n1=220;
             n2++;
+            cont++;
         }
     
     return 0;
