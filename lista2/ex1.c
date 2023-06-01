@@ -1,14 +1,20 @@
 #include <stdio.h>
+
+unsigned long int fat(unsigned long int *n){
+    unsigned long int fatorial = 1, y;
+    y = *n;
+    while(y > 0){
+        fatorial *= y;
+        y--;
+    }
+    return fatorial;
+}
+
 int main(){
-	double C, F;
-	int n, i;
-	scanf("%d", &n);
-	i = 0;
-	while(i < n){ // p/n==3 => i = 0, 1, 2
-		scanf("%lf", &F);
-		C = 5 * (F-32)/9;
-		printf("%.2lf FAHRENHEIT EQUIVALE A %.2lf CELSIUS\n", F, C);
-		i++;
-	}
-	return 0;
+    unsigned long int x, n1, n2;
+    scanf("%lu", &x);
+    n1 = x;
+    n2 = fat(&x);
+    printf("%lu!  = %lu\n", n1, n2);
+    return 0;
 }

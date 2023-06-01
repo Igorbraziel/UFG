@@ -1,16 +1,22 @@
 #include <stdio.h>
+
+void invertido(int *n){
+    int u, d, c;
+    u = (*n % 10);
+    d = (*n % 100) - u;
+    c = (*n) - (u + d);
+
+    *n = (c/100) + (d) + (u*100);
+}
+
 int main(){
-	int x, y;
-	scanf("%d %d", &x, &y);
-	if( (x%2) == 0 ){
-		while( y > 0 ){
-			printf("%d ", x);
-			x += 2;
-			y--;
-		}
-	} else{
-		printf("O PRIMEIRO NUMERO NAO E PAR");
-	}
-	printf("\n");
-	return 0;
+    int x;
+    scanf("%d", &x);
+    if(x < 100 || x > 999 || x%10 == 0){
+        return 0;
+    } else {
+        invertido(&x);
+        printf("%d\n", x);
+    }
+    return 0;
 }
