@@ -32,6 +32,7 @@ Conjunto * diferenca(Conjunto *c1, Conjunto *c2);
 void mostraConjunto(Conjunto *c, int ordem);
 void crescente(Conjunto * c);
 void decrescente(Conjunto * c);
+int copiarConjunto(Conjunto * c1, Conjunto * c2);
 
 Conjunto * conjuntoPartes(Conjunto *c);
 
