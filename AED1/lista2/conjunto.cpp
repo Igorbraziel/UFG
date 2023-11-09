@@ -234,6 +234,7 @@ void crescente(Conjunto * c){
             }
         }
         if(ordem == c->tam_vetor - 1) break;
+        ordem = 0;
     }
 }
 void decrescente(Conjunto * c){
@@ -250,5 +251,6 @@ void decrescente(Conjunto * c){
             }
         }
         if(ordem == c->tam_vetor - 1) break;
+        ordem = 0;
     }
 }
