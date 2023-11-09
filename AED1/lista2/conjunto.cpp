@@ -8,9 +8,10 @@ struct conjunto{
 };
 
 Conjunto * cria_conjunto(Conjunto *c){
-    c = (Conjunto*) calloc(1, sizeof(Conjunto));
+    c = (Conjunto *) calloc(1, sizeof(Conjunto));
     c->vetor = (int *) calloc(1, sizeof(int));
     c->tam_vetor = 0;
+    (*c).tam_vetor = 0;
     return c;
 }
 
@@ -237,6 +238,7 @@ void crescente(Conjunto * c){
         ordem = 0;
     }
 }
+
 void decrescente(Conjunto * c){
     int i, t, ordem = 0;
 
@@ -253,4 +255,14 @@ void decrescente(Conjunto * c){
         if(ordem == c->tam_vetor - 1) break;
         ordem = 0;
     }
+}   
+
+int copiarConjunto(Conjunto * c1, Conjunto * c2){
+    int i;
+
+    for(i = 0; i < c1->tam_vetor; i++){
+        insereElementoConjunto(c1->vetor[i], c2);
+    }
+
+    return SUCESSO;
 }
