@@ -2,15 +2,13 @@
 #include <iostream>
 
 int main(){
-    Data * nine = NULL;
-    data * igor = NULL;
+    Data * igor = NULL;
+    char formato[10] = "mm";
 
-    nine = criaData(27, 12, 2023);
-    igor = criaData(27, 12, 2004);
+    igor = criaData(27, 7, 2023);
 
-    std::cout << numeroDiasDatas(igor, nine) << "\n";
+    std::cout << imprimeData(igor, formato) << "\n";
 
-    liberaData(nine);
     liberaData(igor);
 
     return 0;

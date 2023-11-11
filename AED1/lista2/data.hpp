@@ -21,5 +21,9 @@ int obtemMesData (Data * d);
 int obtemAnoData (Data * d);
 int bissextoData (Data * d);
 int comparaData (Data * d1, Data * d2);
-
 int numeroDiasDatas (Data * d1, Data * d2);
+
+int numeroMesesDatas (Data * d1, Data * d2);
+int numeroAnosDatas (Data * d1, Data * d2);
+int obtemDiaSemanaData (Data * d);
+char * imprimeData (Data * d, char * formato);

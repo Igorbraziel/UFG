@@ -223,3 +223,94 @@ int numeroDiasDatas (Data * d1, Data * d2){
 
     return k;
 }
+
+int numeroMesesDatas (Data * d1, Data * d2){
+    int num_meses = 0;
+    if(comparaData(d1, d2) == MAIOR){
+
+        num_meses = (d1->mes - d2->mes) + (12 * (d1->ano - d2->ano));
+
+    } else if(comparaData(d1, d2) == MENOR){
+
+        num_meses = (d2->mes - d1->mes) + (12 * (d2->ano - d1->ano));
+
+    }
+
+    return num_meses;
+}
+
+int numeroAnosDatas (Data * d1, Data * d2){
+
+    if(comparaData(d1, d2) == MAIOR){
+        return d1->ano - d2->ano;
+    } else if(comparaData(d1, d2) == MENOR){
+        return d2->ano - d1->ano;
+    } 
+
+    return 0;
+
+}
+
+char * imprimeData (Data * d, char * formato){
+    char inicial;
+    int i = 0;
+
+    while(formato[i] != '\0'){
+
+        if(i == 0) inicial = formato[i];
+        i++;
+
+    }
+
+    if(i == 8){
+        if(inicial == 'd'){
+            formato[0] = (d->dia / 10) + '0';
+            formato[1] = (d->dia % 10) + '0';
+            formato[2] = '/';
+            formato[3] = (d->mes / 10) + '0';
+            formato[4] = (d->mes % 10) + '0';
+            formato[5] = '/';
+            formato[6] = (d->ano / 1000) + '0';
+            formato[7] = ((d->ano / 100) % 10) + '0';
+            formato[8] = ((d->ano / 10) % 100) + '0';
+            formato[9] = (d->ano % 10) + '0';
+        } else if(inicial == 'a'){
+            formato[0] = (d->ano / 1000) + '0';
+            formato[1] = ((d->ano / 100) % 10) + '0';
+            formato[2] = ((d->ano / 10) % 100) + '0';
+            formato[3] = (d->ano % 10) + '0';
+            formato[4] = '/';
+            formato[5] = (d->mes / 10) + '0';
+            formato[6] = (d->mes % 10) + '0';
+            formato[7] = '/';
+            formato[8] = (d->dia / 10) + '0';
+            formato[9] = (d->dia % 10) + '0';
+        }
+    } else if(i == 4){
+        if(inicial == 'd'){
+            formato[0] = (d->dia / 10) + '0';
+            formato[1] = (d->dia % 10) + '0';
+            formato[2] = '/';
+            formato[3] = (d->mes / 10) + '0';
+            formato[4] = (d->mes % 10) + '0';
+        } else if(inicial == 'a'){
+            formato[0] = (d->ano / 1000) + '0';
+            formato[1] = ((d->ano / 100) % 10) + '0';
+            formato[2] = ((d->ano / 10) % 100) + '0';
+            formato[3] = (d->ano % 10) + '0';
+        }
+    } else if(i == 2){
+        if(inicial == 'm'){
+            formato[0] = (d->mes / 10) + '0';
+            formato[1] = (d->mes % 10) + '0';
+        } else if(inicial == 'd'){
+            formato[0] = (d->dia / 10) + '0';
+            formato[1] = (d->dia % 10) + '0';
+        }
+    }
+    
+    return formato;
+}
+
+
+int obtemDiaSemanaData (Data * d);
