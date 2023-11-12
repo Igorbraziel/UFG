@@ -13,7 +13,7 @@ Texto * criarTexto (char * t);
 void liberarTexto (Texto * t);
 int tamanhoTexto (Texto * t);
 char * obterTexto (Texto * t);
-void mostrarTexto (Texto *t, int colunas);
+void mostrarTexto (Texto * t, int colunas);
 Texto * copiarTexto (Texto * t);
 void substituirTexto (Texto * t, char * alteracao);
 Texto * concatenarTextos (Texto * t1, Texto * t2);
