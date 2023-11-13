@@ -17,9 +17,9 @@ void freeWorld (World * w);
 int addBacterium (World * w, int n, int f, int e);
 int addBacteriumXY (World * w,  int n, int f, int e, int x, int y);
 int verificaBacteria(World * w, int n);
-
 int randomWorld (World * w, int n);
-
+int killBacterium (World * w, int n);
+int killBacteriumXY (World * w, int x, int y);
 
 
 #endif

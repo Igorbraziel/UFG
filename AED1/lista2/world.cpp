@@ -1,6 +1,7 @@
 #include "world.hpp"
 #include <stdlib.h>
 #include <iostream>
+#include <cstdlib>
 
 struct world{
     int num_linhas;
@@ -25,7 +26,7 @@ World * newWorld (int linhas, int colunas){
 
     for(i = 0; i < w->num_linhas; i++){
         for(j = 0; j < w->num_colunas; j++){
-            w->matriz[i][j] = (int *) malloc(3 * sizeof(int));
+            w->matriz[i][j] = (int *) calloc(3, sizeof(int));
         }
     }
 
@@ -118,6 +119,51 @@ int addBacteriumXY (World * w,  int n, int f, int e, int x, int y){
         w->matriz[x][y][1] = f;
         w->matriz[x][y][2] = e;
     }
+
+    return SUCESSO;
+}
+
+int randomWorld (World * w, int n){
+    int ordem = 0, forca = 0, vida = 0;
+
+    while(1){
+        if(n == 0) break;
+        ordem = (std::rand() % (w->num_colunas * w->num_linhas)) + 1;
+        forca = (std::rand() % 100) + 1;
+        vida = (std::rand() % 100) + 1;
+        if(addBacterium(w, ordem, forca, vida) == FALHA){
+            return FALHA;
+        }  else{
+            n--;
+        }
+    }
+
+    return SUCESSO;
+}
+
+int killBacterium (World * w, int n){
+    int i, j;
+
+    if(verificaBacteria(w, n) == TRUE) return FALHA;
+
+    for(i = 0; i < w->num_linhas; i++){
+        for(j = 0; j < w->num_colunas; j++){
+            if(w->matriz[i][j][0] == n){
+                w->matriz[i][j][0] = 0;
+                w->matriz[i][j][1] = 0;
+                w->matriz[i][j][2] = 0;
+                return SUCESSO;
+            }
+        }
+    }
+}
+
+int killBacteriumXY (World * w, int x, int y){
+    if(x >= w->num_linhas || y >= w->num_colunas) return FALHA;
+
+    w->matriz[x][y][0] = 0;
+    w->matriz[x][y][1] = 0;
+    w->matriz[x][y][2] = 0;
 
     return SUCESSO;
 }
