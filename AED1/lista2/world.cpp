@@ -167,3 +167,24 @@ int killBacteriumXY (World * w, int x, int y){
 
     return SUCESSO;
 }
+
+World * jointWorlds (World * w1, World * w2){
+    World * uniao = NULL;
+    int i, j;
+    
+    uniao = newWorld(w1->num_linhas + w2->num_linhas, w1->num_colunas + w2->num_colunas);
+
+    for(i = 0; i < w1->num_linhas; i++){
+        for(j = 0; j < w1->num_colunas; j++){
+            addBacterium(uniao, w1->matriz[i][j][0], w1->matriz[i][j][1], w1->matriz[i][j][2]);
+        }
+    }
+
+    for(i = 0; i < w2->num_linhas; i++){
+        for(j = 0; j < w2->num_colunas; j++){
+            addBacterium(uniao, w2->matriz[i][j][0], w2->matriz[i][j][1], w2->matriz[i][j][2]);
+        }
+    }
+
+    return uniao;
+}
