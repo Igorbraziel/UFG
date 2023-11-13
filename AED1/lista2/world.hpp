@@ -20,6 +20,8 @@ int verificaBacteria(World * w, int n);
 int randomWorld (World * w, int n);
 int killBacterium (World * w, int n);
 int killBacteriumXY (World * w, int x, int y);
+World * jointWorlds (World * w1, World * w2);
 
+World * warWorlds (World * w1, World * w2);
 
 #endif
