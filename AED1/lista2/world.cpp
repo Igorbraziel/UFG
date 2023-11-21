@@ -189,4 +189,42 @@ World * jointWorlds (World * w1, World * w2){
     return uniao;
 }
 
+World * warWorlds (World * w1, World * w2){
+    World * war = NULL;
+    int i, j;
+
+    war = cloneWorld(w1);
+
+    for(i = 0; i < war->num_linhas; i++){
+        for(j = 0; j < war->num_colunas; j++){
+            if(i < w2->num_linhas && j < w2->num_colunas){
+                if(war->matriz[i][j][1] != 0 && w2->matriz[i][j][1] != 0){
+                    if(war->matriz[i][j][1] == w2->matriz[i][j][1]){
+                        war->matriz[i][j][1] *= 2;
+                        if(war->matriz[i][j][1] > 100) war->matriz[i][j][1] = 100;
+                        war->matriz[i][j][2] = maior(war->matriz[i][j][2], w2->matriz[i][j][2]);
+                    } else if(war->matriz[i][j][1] < w2->matriz[i][j][1]){
+                        war->matriz[i][j][0] = w2->matriz[i][j][0];
+                        war->matriz[i][j][2] = w2->matriz[i][j][2];
+                        war->matriz[i][j][1] += w2->matriz[i][j][1];
+                        if(war->matriz[i][j][1] > 100) war->matriz[i][j][1] = 100;
+                    } else{
+                        war->matriz[i][j][1] += w2->matriz[i][j][1];
+                        if(war->matriz[i][j][1] > 100) war->matriz[i][j][1] = 100;
+                    }
+                } else if(w2->matriz[i][j][1] != 0){
+                    addBacteriumXY(war, w2->matriz[i][j][0], w2->matriz[i][j][1], w2->matriz[i][j][2], i, j);
+                }
+            }
+        }
+    }
+
+    return war;
+}
+
+int maior(int x, int y){
+    if(x > y) return x;
+    return y;
+}
+
 
