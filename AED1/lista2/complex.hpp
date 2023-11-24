@@ -14,13 +14,15 @@ typedef struct numero Numero;
 #define TRUE 1
 #define FALSE 0
 
-int criaConjunto(Complexo * c);
-int conjuntoVazio(Complexo * c);
+Complexo * criaConjunto();
+void freeConjunto(Complexo * c);
+void freeNumero(Numero * c);
+bool conjuntoVazio(Complexo * c);
 int insereElementoConjunto(Numero * x, Complexo * c);
 int excluirElementoConjunto(Numero * x, Complexo * c);
 int tamanhoConjunto(Complexo * c);
-
-
+void showConjunto(Complexo * c);
+Numero * criaNumero(int real, int imaginario);
 
 
 #endif
