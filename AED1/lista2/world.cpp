@@ -61,6 +61,23 @@ World * cloneWorld (World * w){
     return copia;
 }
 
+int verificaBacteria(World * w, int n){
+    int i, j;
+
+    for(i = 0; i < w->num_linhas; i++){
+        for(j = 0; j < w->num_colunas; j++){
+            if(w->matriz[i][j][0] == n) return TRUE;
+        }
+    }
+
+    return FALSE;
+}
+
+int maior(int x, int y){
+    if(x > y) return x;
+    return y;
+}
+
 void freeWorld (World * w){
     int i, j;
 
@@ -95,18 +112,6 @@ int addBacterium (World * w, int n, int f, int e){
     }
 
     return FALHA;
-}
-
-int verificaBacteria(World * w, int n){
-    int i, j;
-
-    for(i = 0; i < w->num_linhas; i++){
-        for(j = 0; j < w->num_colunas; j++){
-            if(w->matriz[i][j][0] == n) return TRUE;
-        }
-    }
-
-    return FALSE;
 }
 
 int addBacteriumXY (World * w,  int n, int f, int e, int x, int y){
@@ -144,7 +149,7 @@ int randomWorld (World * w, int n){
 int killBacterium (World * w, int n){
     int i, j;
 
-    if(verificaBacteria(w, n) == TRUE) return FALHA;
+    if(verificaBacteria(w, n) == FALSE) return FALHA;
 
     for(i = 0; i < w->num_linhas; i++){
         for(j = 0; j < w->num_colunas; j++){
@@ -156,6 +161,8 @@ int killBacterium (World * w, int n){
             }
         }
     }
+
+    return SUCESSO;
 }
 
 int killBacteriumXY (World * w, int x, int y){
@@ -222,9 +229,86 @@ World * warWorlds (World * w1, World * w2){
     return war;
 }
 
-int maior(int x, int y){
-    if(x > y) return x;
-    return y;
+World * probabilisticWarWorlds (World * w1, World *w2, float p){
+    World * war = NULL;
+    int i, j;
+
+    war = cloneWorld(w1);
+
+    for(i = 0; i < war->num_linhas; i++){
+        for(j = 0; j < war->num_colunas; j++){
+            if(i < w2->num_linhas && j < w2->num_colunas){
+                if(war->matriz[i][j][1] != 0 && w2->matriz[i][j][1] != 0){
+                    if(war->matriz[i][j][1] == w2->matriz[i][j][1]){
+                        war->matriz[i][j][1] *= 2;
+                        if(war->matriz[i][j][1] > 100) war->matriz[i][j][1] = 100;
+                        war->matriz[i][j][2] = maior(war->matriz[i][j][2], w2->matriz[i][j][2]);
+                    } else if(war->matriz[i][j][1] < w2->matriz[i][j][1]){
+                        war->matriz[i][j][0] = w2->matriz[i][j][0];
+                        war->matriz[i][j][2] = w2->matriz[i][j][2];
+                        war->matriz[i][j][1] += w2->matriz[i][j][1];
+                        if(war->matriz[i][j][1] > 100) war->matriz[i][j][1] = 100;
+                    } else{
+                        war->matriz[i][j][1] += w2->matriz[i][j][1];
+                        if(war->matriz[i][j][1] > 100) war->matriz[i][j][1] = 100;
+                    }
+                } else if(w2->matriz[i][j][1] != 0){
+                    addBacteriumXY(war, w2->matriz[i][j][0], w2->matriz[i][j][1], w2->matriz[i][j][2], i, j);
+                }
+            }
+        }
+    }
+
+    return war;
 }
 
+int sizeWorld (World * w){
+    int i, j, contador = 0;
 
+    for(i = 0; i < w->num_linhas; i++){
+        for(j = 0; j < w->num_colunas; j++){
+            if(w->matriz[i][j][0] != 0) contador++;
+        }
+    }
+
+    return contador;
+}
+
+int forceWorld (World * w){
+    int i, j, soma = 0;
+
+    for(i = 0; i < w->num_linhas; i++){
+        for(j = 0; j < w->num_colunas; j++){
+            soma += w->matriz[i][j][1];
+        }
+    }
+
+    return soma;
+}
+
+void worldPrint(World * w){
+    int i, j;
+
+    for(i = 0; i < w->num_linhas; i++){
+        for(j = 0; j < w->num_colunas; j++){
+            std::cout << "[(Xi: " << w->matriz[i][j][0] << "), ";
+            std::cout << "(Yi: " << w->matriz[i][j][1] << "), ";
+            std::cout << "(Zi: " << w->matriz[i][j][2] << ")], ";
+        }
+        std::cout << "\n";
+    }
+
+}
+
+int showWorld (World * w){
+    int i, j;
+
+    for(i = 0; i < w->num_linhas; i++){
+        for(j = 0; j < w->num_colunas; j++){
+            std::cout << "|   " << w->matriz[i][j][0] << "," << w->matriz[i][j][1] <<  "," << w->matriz[i][j][2] << "   | ";
+        }
+        std::cout << "\n";
+    }
+
+    return SUCESSO;
+}
