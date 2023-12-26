@@ -23,6 +23,14 @@ int excluirElementoConjunto(Numero * x, Complexo * c);
 int tamanhoConjunto(Complexo * c);
 void showConjunto(Complexo * c);
 Numero * criaNumero(int real, int imaginario);
+bool pertenceConjunto(Numero * x, Complexo * c);
+bool conjuntosIdenticos(Complexo * c1, Complexo * c2);
+bool subconjunto(Complexo * c1, Complexo * c2);
+Complexo * complemento(Complexo * c1, Complexo * c2);
+Complexo * uniao(Complexo * c1, Complexo * c2);
+Complexo * interseccao(Complexo * c1, Complexo * c2);
+Complexo * diferenca(Complexo * c1, Complexo * c2);
+bool isElementIn(Complexo * c);
 
 
 #endif
