@@ -77,7 +77,6 @@ int READ(Registry * array, int current_size){
 
 int UPDATE(Registry * array, int current_size){
     int matriculation, i, j;
-    char option;
 
     printf("Digite o número de matrícula desejado para alterar os dados do aluno: ");
     scanf("%d", &matriculation);
@@ -88,7 +87,7 @@ int UPDATE(Registry * array, int current_size){
             scanf("%d%*c", &matriculation);
             for(j = 0; j < current_size; j++){
                 if(matriculation == array[j].matriculation){
-                    printf("Falha na criação de um novo registro\n");
+                    printf("Falha no UPDATE de registro\n");
                     return FAULT;
                 }
             }

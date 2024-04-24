@@ -71,7 +71,7 @@ int CREATE(Registry * record){
     printf("Digite o número de matrícula a ser registrado: ");
     scanf("%d%*c", &matriculation);
 
-    if(Exists_Matriculation_Registry(record, matriculation) == 0){
+    if(Exists_Matriculation_Registry(record, matriculation) == FAULT){
         printf("Falha na criação de um novo registro\n");
         return FAULT;
     }
@@ -103,6 +103,7 @@ int CREATE(Registry * record){
         previous->next = record->last;
         record->last->previous = previous;
         record->last->next = record->first;
+        record->first->previous = record->last;
     }
 
     printf("CREATE concluído com sucesso!\n");
@@ -111,7 +112,10 @@ int CREATE(Registry * record){
 }
 
 int READ(Registry * record){
-    if(record->first == NULL) return FAULT;
+    if(record->first == NULL) {
+        printf("Registrio vazio\n");
+        return FAULT;
+    }
     Node * current = record->first;
     int i;
 
@@ -127,6 +131,124 @@ int READ(Registry * record){
         current = current->next;
     }
     return SUCCESS;
+}
+
+int UPDATE(Registry * record){
+    int matriculation, i, j;
+    char name[SIZE_MAX_STRING], course[SIZE_MAX_STRING];
+    float note1, note2;
+
+    printf("Digite o número de matrícula desejado para alterar os dados do aluno: ");
+    scanf("%d", &matriculation);
+
+    if(Exists_Matriculation_Registry(record, matriculation) == FAULT){
+        Node * current = record->first;
+        while(current->matriculation != matriculation){
+            current = current->next;
+        }
+
+        printf("Digite o novo número de matricula desejado: ");
+        scanf("%d%*c", &matriculation);
+
+        if(Exists_Matriculation_Registry(record, matriculation) == SUCCESS){
+            printf("Digite o novo nome a ser registrado: ");
+            scanf("%[^\n]%*c", name);
+
+            printf("Digite o novo curso a ser registrado: ");
+            scanf("%[^\n]%*c", course);
+
+            printf("Digite a nova primeira nota a ser registrada: ");
+            scanf("%f", &note1);
+
+            printf("Digite a nova segunda nota a ser registrada: ");
+            scanf("%f", &note2);
+
+            current->matriculation = matriculation;
+            strcpy(current->name, name);
+            strcpy(current->course, course);
+            current->note1 = note1;
+            current->note2 = note2;
+
+            printf("UPDATE concluído com sucesso!\n");
+
+            return SUCCESS;
+        }
+    }
+
+    printf("Falha no UPDATE de registro\n");
+    return FAULT;
+}
+
+int DELETE(Registry * record){
+    if(record->first == NULL){
+        printf("Falha no DELETE de registros\n");
+        return FAULT;
+    }
+
+    int matriculation, i, j;
+    char option;
+
+    printf("Digite o número de matrícula do aluno que será removido do registro: ");
+    scanf("%d%*c", &matriculation);
+
+    if(Exists_Matriculation_Registry(record, matriculation) == FAULT){
+        printf("Registro Encontrado, deseja realmente excluir? [S/N]: ");
+        scanf("%c", &option);
+        if(option == 's' || option == 'S'){
+            Node * current = record->first;
+            while(current->matriculation != matriculation){
+                current = current->next;
+            }
+
+            if(record->size == 1){
+                Node * removed = record->first;
+                record->first = NULL;
+                record->last = NULL;
+                free(removed);
+            } else if(current == record->first) {
+                Node * removed = record->first;
+                record->first = record->first->next;
+                record->first->previous = record->last;
+                record->last->next = record->first;
+                free(removed);
+            } else if(current == record->last){
+                Node * removed = record->last;
+                record->last = record->last->previous;
+                record->last->next = record->first;
+                record->first->previous = record->last;
+                free(removed);
+            } else {
+                Node * removed = current;
+                Node * previous = current->previous;
+                Node * next = current->next;
+                previous->next = next;
+                next->previous = previous;
+                free(removed);
+            }
+
+            printf("DELETE concluído com sucesso!\n");
+            record->size -= 1;
+
+            return SUCCESS;
+        }
+    }
+
+    printf("Falha no DELETE de registros\n");
+    return FAULT;
+}
+
+void Registry_Free(Registry * record){
+    if(record->first == NULL || record->size == 0) return;
+    Node * current = record->first;
+    int i;
+
+    for(i = 0; i < record->size; i++){
+        Node * removed = current;
+        current = current->next;
+        free(removed);
+    }
+
+    free(record);
 }
 
 int main(){
@@ -151,14 +273,16 @@ int main(){
             CREATE(first_registry);
         } else if (options == 2){
             READ(first_registry);
-        } /*else if (options == 3){
+        } else if (options == 3){
             UPDATE(first_registry);
         } else if (options == 4){
             DELETE(first_registry);
         } else if (options == 5){
             break;
-        }*/
+        }
     }
+
+    Registry_Free(first_registry);
     
     return 0;
 }
