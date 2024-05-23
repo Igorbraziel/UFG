@@ -16,6 +16,7 @@ próximo digito binario do M, assim por diante, até percorrer a MENSAGEM e guar
 
 */
 #include <stdio.h>
+#include <unistd.h>
 #define IMAGE_PATH "image.jpg"
 
 int MyPow(int x, int exponent){
@@ -46,8 +47,12 @@ void ChangeImageByte(FILE * file, int *index_to_insert, int digit){
 
     fseek(file, *index_to_insert, SEEK_SET);
     value = fgetc(file);
-
-    if(value == EOF) return;
+    while(1){
+        if(value >= 33 && value <= 120) break;
+        if(value == EOF) return;
+        value = fgetc(file);
+        (*index_to_insert) = (*index_to_insert) + 1;
+    }
 
     value = IntToBin(value, 0);
     value = ChangeLastDigit(value, digit);
@@ -64,12 +69,15 @@ int main(){
     int value, digit, i = 0;
     int exp = 0, sum = 0, result, j = 1;
     int index_byte = 0, index_str = 0;
-    char message[100] = {"MESSAGE"};
+    char message[100];
     char read_message[100];
 
     // IN THE FIRST OPEN OF FILE, WE PUT THE SECRET MESSAGE IN THE IMAGE
 
-    file = fopen(IMAGE_PATH, "r+");
+    printf("Write the message that you want to hide: ");
+    scanf("%s", message);
+
+    file = fopen(IMAGE_PATH, "rb+");
 
     while(message[i] != '\0'){
         int value = message[i];
@@ -82,19 +90,27 @@ int main(){
         i++;
     }
 
-    printf("HIDE MESSAGE IN THE IMAGE: ( %s )\n", message);
+    printf("HIDING THE MESSAGE IN THE IMAGE: ( %s )\n", message);
     printf("----------------------------------------------\n");
 
     fclose(file);
 
+    sleep(4);
+
     //--------------------------------------------------------------------------
     // IN THE SECOND OPEN OF FILE, WE READ THE IMAGE BYTES AND FOUND THE SECRET MESSAGE
 
-    file = fopen(IMAGE_PATH, "r");
+    file = fopen(IMAGE_PATH, "rb");
 
     i = 1;
     while (i <= index_byte){
         value = fgetc(file);
+        while(1){
+            if(value >= 33 && value <= 120) break;
+            if(value == EOF) break;
+            value = fgetc(file);
+            i++;
+        }
         if(value == EOF) break;
         value = IntToBin(value, 0);
         value = (value % 10) * MyPow(10, exp);
@@ -115,7 +131,7 @@ int main(){
 
     read_message[index_str] = '\0';
 
-    printf("READ MESSAGE THAT WE FIND IN THE IMAGE: ( %s )\n", read_message);
+    printf("THE MESSAGE THAT WE FOUND IN THE IMAGE: ( %s )\n", read_message);
 
     fclose(file);
 
