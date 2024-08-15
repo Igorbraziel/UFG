@@ -2,18 +2,43 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define CLEAN_COLORS "\033[m"
+/*****************************COLORS***************************************/
+#define C_BLACK     "\033[1;30m"
+#define C_RED       "\033[1;31m"
+#define C_GREEN     "\033[1;32m"
+#define C_YELLOW    "\033[1;33m"
+#define C_BLUE      "\033[1;34m"
+#define C_MAGENTA   "\033[1;35m"
+#define C_CYAN      "\033[1;36m"
+#define C_GRAY      "\033[1;37m"
+/**************************************************************************/
+
+/***************************BACKGROUNDS************************************/
+#define BG_BLACK    "\033[40m"
+#define BG_RED      "\033[41m"
+#define BG_GREEN    "\033[42m"
+#define BG_YELLOW   "\033[43m"
+#define BG_BLUE     "\033[44m"
+#define BG_MAGENTA  "\033[45m"
+#define BG_CYAN     "\033[46m"
+#define BG_GRAY     "\033[47m"
+/**************************************************************************/
+
 #define TRUE 1
 #define FALSE 0
 #define file_name "base_algorithm.c"
 
 typedef struct tree {
     char word[100];
+    int error_line;
     struct tree * left;
     struct tree * right;
 } Tree;
 
 typedef struct stack_node {
     char character;
+    int error_line;
     struct stack_node * next;
     struct stack_node * previous;
 } Stack_Node;
@@ -23,19 +48,21 @@ typedef struct stack {
     int size;
 } Stack;
 
-Tree * NewTreeNode(char * word){
+Tree * NewTreeNode(char * word, int line){
     Tree * new_node = (Tree *) malloc(sizeof(Tree));
     strcpy(new_node->word, word);
     new_node->right = NULL;
     new_node->left = NULL;
+    new_node->error_line = line;
     return new_node;
 }
 
-Stack_Node * NewStackNode(const char character){
+Stack_Node * NewStackNode(const char character, int line){
     Stack_Node * new_node = (Stack_Node *) malloc(sizeof(Stack_Node));
     new_node->character = character;
     new_node->next = NULL;
     new_node->previous = NULL;
+    new_node->error_line = line;
     return new_node;
 }
 
@@ -46,15 +73,15 @@ Stack * NewStack(){
     return st;
 }
 
-void InsertTree(Tree ** top, char * word){
+void InsertTree(Tree ** top, char * word, int line){
     if(*top == NULL){
-        Tree * new_node = NewTreeNode(word);
+        Tree * new_node = NewTreeNode(word, line);
         *top = new_node;
     } else {
         if(strcmp((*top)->word, word) > 0){
-            InsertTree(&(*top)->left, word);
+            InsertTree(&(*top)->left, word, line);
         } else {
-            InsertTree(&(*top)->right, word);
+            InsertTree(&(*top)->right, word, line);
         }
     }
 }
@@ -76,7 +103,11 @@ void InsertStack(Stack * st, Stack_Node * new_node){
 void ShowTree(Tree * top){
     if(top != NULL){
         ShowTree(top->left);
-        printf("-%s\n", top->word);
+        printf("-%s", top->word);
+        if(top->error_line != -1) {
+            printf("%s - Erro de sintaxe encontrado na linha:%s %d%s", C_RED, C_BLUE, top->error_line, CLEAN_COLORS);
+        }
+        printf("\n");
         ShowTree(top->right);
     }
 }
@@ -86,7 +117,10 @@ void ShowStack(Stack * st){
     if(st->last == NULL) return;
     Stack_Node * current = st->last;
     while(current != NULL){
-        printf("%c ", current->character);
+        printf("\n %s%c%s", C_BLUE, current->character, CLEAN_COLORS);
+        if(current->error_line != -1) {
+            printf("%s - Erro na linha:%s %d%s", C_GREEN, C_BLUE, current->error_line, CLEAN_COLORS);
+        }
         current = current->previous;
     }
 }
@@ -148,19 +182,25 @@ int SearchTree(Tree * top, const char * word){
 
 void ShowStackErrors(Stack * input_block, Stack * output_block){
     if(input_block->last == NULL){
-        printf("Não há erros na fechadura de parênteses, chaves ou colchetes\n");
+        printf("%s", C_GREEN);
+        printf("Não há erros na fechadura de parênteses, chaves ou colchetes%s\n\n", CLEAN_COLORS);
     } else {
+        printf("%s", C_RED);
         printf("Há %d erros na fechadura de parênteses, chaves ou colchetes\n", input_block->size);
         printf("Os blocos que não foram fechados são: ");
+        printf("%s", CLEAN_COLORS);
         ShowStack(input_block);
         printf("\n");
     }
 
     if(output_block->last == NULL){
-        printf("Não há erros na abertura de parênteses, chaves ou colchetes\n");
+        printf("%s", C_GREEN);
+        printf("Não há erros na abertura de parênteses, chaves ou colchetes%s\n", CLEAN_COLORS);
     } else {
+        printf("%s", C_RED);
         printf("Há %d erros na abertura de parênteses, chaves ou colchetes\n", output_block->size);
         printf("Os blocos que não foram abertos terminam com: ");
+        printf("%s", CLEAN_COLORS);
         ShowStack(output_block);
         printf("\n");
     }
@@ -171,9 +211,10 @@ int main(){
     Tree * correct_words = NULL;
     Tree * wrong_words = NULL;
     Stack * st = NewStack();
-    Stack * errors_stack = NewStack();
+    Stack * errors_stack_output = NewStack();
+    Stack * errors_stack_input = NewStack();
     FILE * file_ = fopen(file_name, "r");
-    int data_size = 32, i;
+    int data_size = 38, i, current_line = 1;
     int flag = 0, command_index = 0; 
     char c, removed_value;
     char command_word[100];
@@ -209,12 +250,18 @@ int main(){
         "struct", // keyword 29
         "sqrt", // function 30
         "FILE", // Type od data 31
-        "realloc" // function 32
+        "realloc", // function 32
+        "double", // 33 
+        "const", // 34
+        "sizeof", // 35
+        "switch", // 36
+        "case", // 37
+        "unsigned" // 38
     };  
 
     // Inserting the data in the tree
     for(i = 0; i < data_size; i++){
-        InsertTree(&top, Data[i]);
+        InsertTree(&top, Data[i], -1);  
     }
 
     while(1){ // Verification of the algorithm
@@ -228,11 +275,11 @@ int main(){
             } else {
                 if(SearchTree(top, command_word) == TRUE){
                     if(SearchTree(correct_words, command_word) == FALSE){
-                        InsertTree(&correct_words, command_word);
+                        InsertTree(&correct_words, command_word, -1);
                     }
                 } else {
                     if(SearchTree(wrong_words, command_word) == FALSE && strcmp(command_word, "") != 0){
-                        InsertTree(&wrong_words, command_word);
+                        InsertTree(&wrong_words, command_word, current_line);
                     }
                 }
                 command_index = 0;
@@ -242,46 +289,69 @@ int main(){
         
         if(c == '('){
             flag = 1;
-            InsertStack(st, NewStackNode(c));
+            InsertStack(st, NewStackNode(c, current_line));
         }
         if(c == '['){
-            InsertStack(st, NewStackNode(c));
+            InsertStack(st, NewStackNode(c, current_line));
         }
         if(c == '{'){
-            InsertStack(st, NewStackNode(c));
+            InsertStack(st, NewStackNode(c, current_line));
         }
         if(c == ')'){
             flag = 0;
             removed_value = DeleteStack(st);
             if(removed_value != '('){
-                InsertStack(errors_stack, NewStackNode(c));
+                InsertStack(errors_stack_output, NewStackNode(c, current_line));
+                if(removed_value != '0'){
+                    InsertStack(errors_stack_input, NewStackNode(removed_value, current_line));
+                }
             }
         }
         if(c == ']'){
             removed_value = DeleteStack(st);
             if(removed_value != '['){
-                InsertStack(errors_stack, NewStackNode(c));
+                InsertStack(errors_stack_output, NewStackNode(c, current_line));
+                if(removed_value != '0'){
+                    InsertStack(errors_stack_input, NewStackNode(removed_value, current_line));
+                }
             }
         }
         if(c == '}'){
             removed_value = DeleteStack(st);
             if(removed_value != '{'){
-                InsertStack(errors_stack, NewStackNode(c));
+                InsertStack(errors_stack_output, NewStackNode(c, current_line));
+                if(removed_value != '0'){
+                    InsertStack(errors_stack_input, NewStackNode(removed_value, current_line));
+                }
             }
         }
         if(c == '<') flag = 1;
         if(c == '>') flag = 0;
+        if(c == '\n') current_line++;
+    }
+
+    while(1){
+        if(st->last != NULL){
+            c = DeleteStack(st);
+            if(c == '0') break;
+            current_line = st->last->error_line;
+            InsertStack(errors_stack_input, NewStackNode(c, current_line));
+        } else {
+            break;
+        }
     }
 
     printf("----------------------------------------------------------------------------\n");
-    ShowStackErrors(st, errors_stack);
+    ShowStackErrors(errors_stack_input, errors_stack_output);
     printf("----------------------------------------------------------------------------\n");
 
-    printf("Palavras com a sintaxe correta segundo o compilador de linguagem C: {\n");
+    printf("%s", C_BLUE);
+    printf("Palavras com a sintaxe correta segundo o compilador de linguagem C: %s{\n", CLEAN_COLORS);
     ShowTree(correct_words);
     printf("}\n");
     printf("----------------------------------------------------------------------------\n");
-    printf("Palavras com a sintaxe incorreta segundo o compilador de linguagem C: {\n");
+    printf("%s", C_BLUE);
+    printf("Palavras com a sintaxe incorreta segundo o compilador de linguagem C: %s{\n", CLEAN_COLORS);
     printf("(AQUI INCLUI AS VÁRIAVEIS UTILIZADAS NO ALGORITMO,\nQUE NÃO SÃO RECONHECIDAS COMO PALAVRAS-CHAVE DA LINGUAGEM C)\n");
     ShowTree(wrong_words);
     printf("}\n");
@@ -292,7 +362,8 @@ int main(){
     FreeTree(correct_words);
     FreeTree(wrong_words);
     FreeStack(st);
-    FreeStack(errors_stack);
+    FreeStack(errors_stack_input);
+    FreeStack(errors_stack_output);
 
     return 0;
 }

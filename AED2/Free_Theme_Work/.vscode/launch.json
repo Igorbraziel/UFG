@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/igor/Documents/GitHub/UFG/AED2/Hash",
-      "program": "/home/igor/Documents/GitHub/UFG/AED2/Hash/build/Debug/outDebug",
+      "cwd": "/home/igor/Documents/GitHub/UFG/AED2/Free_Theme_Work",
+      "program": "/home/igor/Documents/GitHub/UFG/AED2/Free_Theme_Work/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

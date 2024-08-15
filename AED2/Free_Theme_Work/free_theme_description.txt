@@ -1,0 +1,26 @@
+Discente: Igor Reis Braziel
+Tema Livre: "Sistema de Pontos de Navegação com Árvores Binárias em C"
+
+Objetivo:
+Criar um sistema de navegação que utiliza uma (Árvore Binária de Busca) 
+para organizar e gerenciar (Pontos de Navegação) e permitir a busca eficiente 
+de locais com base em coordenadas geográficas ou nomes.
+
+Funcionalidades do Sistema:
+---------------------------------------------------------------------------------------------------------------------------------------
+1-Adicionar Pontos de Navegação:
+Inserir novos Pontos de Navegação na Árvore Binária de Busca com informações como:
+nome, coordenadas (x,y), e categoria (restaurante, hotel, posto de gasolina, lanchonetes, lojas, etc.).
+---------------------------------------------------------------------------------------------------------------------------------------
+2-Remover Pontos de Navegação:
+Remover um Ponto de Navegação específico da Árvore Binária de Busca utilizando o nome como chave de busca.
+---------------------------------------------------------------------------------------------------------------------------------------
+3-Buscar Pontos de Navegação:
+Buscar um Ponto de Navegação na Árvore Binária de Busca pelo nome e exibir suas informações.
+---------------------------------------------------------------------------------------------------------------------------------------
+4-Calcular Distância:
+Calcular a distância entre dois Pontos de Navegação utilizando a fórmula da distância entre dois pontos.
+---------------------------------------------------------------------------------------------------------------------------------------
+5-Encontrar Pontos de Navegação Próximos:
+Encontrar Pontos de Navegação Próximos dentro de um raio específico a partir de um ponto central.
+---------------------------------------------------------------------------------------------------------------------------------------
