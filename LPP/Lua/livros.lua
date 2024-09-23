@@ -63,3 +63,18 @@ livros[4] = {
     cnpj = "4.4444.4444/0001",
   }
 }
+
+for k, livro in pairs(livros) do 
+  print(livro["nome"] .. "\n")
+
+  for k, autor in pairs(livro["autores"]) do
+    print(autor .. "\n")
+  end
+
+  print(livro["preco"] .. "\n")
+  print(livro["edicao"] .. "\n")
+
+  for k, value in pairs(livro["editora"]) do 
+    print(value .. "\n")
+  end
+end
