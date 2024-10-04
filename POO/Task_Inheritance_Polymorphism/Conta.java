@@ -3,7 +3,7 @@ public class Conta {
     private String titular;
     private double saldo;
 
-    public void setNumero(int numero){
+    protected void setNumero(int numero){
         this.numero = numero;
     }
 
@@ -11,7 +11,7 @@ public class Conta {
         return this.numero;
     }
 
-    public void setTitular(String titular){
+    protected void setTitular(String titular){
         this.titular = titular;
     }
 
@@ -19,7 +19,7 @@ public class Conta {
         return this.titular;
     }
 
-    public void setSaldo(double saldo){
+    protected void setSaldo(double saldo){
         this.saldo = saldo;
     }
 
