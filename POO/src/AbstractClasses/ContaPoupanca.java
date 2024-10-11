@@ -1,6 +1,7 @@
 package AbstractClasses;
 
 public class ContaPoupanca extends Conta {
+    @SuppressWarnings("unused")
     private double juros;
     
     public boolean validaConta() {

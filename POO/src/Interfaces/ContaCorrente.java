@@ -1,6 +1,7 @@
 package Interfaces;
 
 public class ContaCorrente extends Conta implements Tributavel {
+    @SuppressWarnings("unused")
     private double limite;
 
     public boolean validaConta() {
