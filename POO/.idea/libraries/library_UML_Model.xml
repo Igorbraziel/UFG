@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="library_UML_Model">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/Task_UML_Model/library_UML_Model.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

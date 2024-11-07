@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Task_ClassAssociation">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/Task_ClassAssociation/Musicas_Compositores.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/Task_ClassAssociation/Clientes_Endereco.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/Task_ClassAssociation/Alunos_Cursos_Departamentos.zip!/" />
+      <root url="jar://$PROJECT_DIR$/src/Task_ClassAssociation/Empregado_Empresa.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,2 @@
+go build file.go  // compila o arquivo Go
+./file // executa o arquivo 
