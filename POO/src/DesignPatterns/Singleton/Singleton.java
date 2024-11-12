@@ -1,7 +1,7 @@
 package DesignPatterns.Singleton;
 
 public final class Singleton {
-    private Singleton instance;
+    private static Singleton instance;
 
     private Singleton(){}
 
