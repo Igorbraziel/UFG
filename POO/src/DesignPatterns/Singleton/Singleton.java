@@ -1,11 +1,11 @@
 package DesignPatterns.Singleton;
 
 public final class Singleton {
-    private Singleton instance;
+    private static Singleton instance;
 
     private Singleton(){}
 
-    public Singleton getInstance(){
+    public static Singleton getInstance(){
         if(instance == null){
             instance = new Singleton();
         }
