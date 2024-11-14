@@ -3,6 +3,8 @@ package main
 // Canal bufferizado permite que múltiplos valores sejam armazenados no canal sem 
 // que uma goroutine tenha que esperar a outra consumir imediatamente.
 
+// Esse tipo de canal armazena os valores enviados até atingir sua capacidade.
+
 import (
 	"fmt"
 )

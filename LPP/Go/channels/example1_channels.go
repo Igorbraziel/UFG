@@ -8,9 +8,9 @@ import (
 )
 
 func main() {
-	ch := make(chan int) // cria um canal do tipo int
+	ch := make(chan int) // cria um canal do tipo int, não bufferizado
 
-	go func() {
+	go func() { // essa operação de envio bloqueia a execução da main até que esteja pronta para receber o valor.
 		ch <- 42 // envia um valor para o canal, atraves de uma goroutine anonima
 	}()
 

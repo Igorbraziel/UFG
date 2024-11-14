@@ -7,8 +7,8 @@ import (
 	"fmt"
 )
 
-func soma(a int, b int, ch chan int) {
-	ch <- a + b
+func soma(x int, y int, ch chan int) {
+	ch <- x + y
 }
 
 func main() {
