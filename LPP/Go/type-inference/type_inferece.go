@@ -10,8 +10,16 @@ func main() {
     var distancia float64 = 30.35
     
 	z := false
-    var valorVerdade = true
+    var valorVerdade bool = true
 
     w := "Go"
-    var nome string = "Go"
+    var nome string = "Golang"
+
+    fmt.Println(x, idade)
+
+    fmt.Println(y, distancia)
+
+    fmt.Println(z, valorVerdade)
+
+    fmt.Println(w, nome)
 }
