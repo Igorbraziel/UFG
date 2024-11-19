@@ -16,4 +16,10 @@ public class TShirt implements ProductProtocol {
     public String getName(){
         return name;
     }
+
+    @Override
+    public String toString(){
+        return "Nome: " + name + "\n" +
+                "Preço: " + price;
+    }
 }

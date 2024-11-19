@@ -7,11 +7,17 @@ public class ProductStampDecorator extends ProductDecorator {
 
     @Override
     public Double getPrice(){
-        return product.getPrice() + 10;
+        return product.getPrice() + 10; // As Camisetas Estampadas tem um aumento de 10 Reais
     }
 
     @Override
     public String getName(){
-        return product.getName() + " Stamped";
+        return product.getName() + " (Estampado)";
+    }
+
+    @Override
+    public String toString(){
+        return "Nome: " + getName() + "\n" +
+                "Preço: " + getPrice();
     }
 }

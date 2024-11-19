@@ -7,11 +7,7 @@ public abstract class ProductDecorator implements ProductProtocol {
         this.product = product;
     }
 
-    public Double getPrice(){
-        return product.getPrice();
-    }
+    public abstract Double getPrice();
 
-    public String getName(){
-        return product.getName();
-    }
+    public abstract String getName();
 }
