@@ -1,5 +1,8 @@
 package DesignPatterns.Decorator.Example;
 
+// O programa principal que vai testar o funcionamento
+// do padrão de projeto Decorator
+
 public class Main {
     public static void printLine(){
         System.out.println("------------------------------------------------");
