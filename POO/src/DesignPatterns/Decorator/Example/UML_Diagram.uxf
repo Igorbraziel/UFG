@@ -1,0 +1,28 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>280</x><y>60</y><w>210</w><h>80</h></coordinates><panel_attributes>ProductProtocol
+(interface)
+--
+--
++getPrice(): Double
++getName(): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>80</x><y>220</y><w>210</w><h>100</h></coordinates><panel_attributes>TShirt
+--
+-price: Double
+-name: String
+--
++getPrice(): Double
++getName(): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>430</x><y>220</y><w>210</w><h>100</h></coordinates><panel_attributes>ProductDecorator
+(abstract)
+--
++product: ProductProtocol
+--
++getPrice(): Double
++getName(): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>600</x><y>400</y><w>210</w><h>100</h></coordinates><panel_attributes>ProductCustomizedDecorator
+--
+-customizedColor: String
+--
++getPrice(): Double
++getName(): String
++getCustomizedColor(): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>240</x><y>400</y><w>210</w><h>70</h></coordinates><panel_attributes>ProductStampDecorator
+--
+--
++getPrice(): Double
++getName(): String</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>480</x><y>90</y><w>240</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes><additional_attributes>160;180;220;180;220;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>170</x><y>130</y><w>380</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>200;10;200;50;10;50;360;50;360;90</additional_attributes></element><element><id>Relation</id><coordinates><x>170</x><y>170</y><w>30</w><h>70</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>310</y><w>380</w><h>110</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>200;10;200;50;10;50;360;50;360;90</additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>350</y><w>30</w><h>70</h></coordinates><panel_attributes>lt=-</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element></diagram>
