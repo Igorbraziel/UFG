@@ -7,7 +7,6 @@ import java.awt.*;
 public class FrameWindow extends JFrame {
     public FrameWindow(){
         this.setResizable(false);
-        this.setLayout(new FlowLayout());
     }
 
     public void executeApplication(){

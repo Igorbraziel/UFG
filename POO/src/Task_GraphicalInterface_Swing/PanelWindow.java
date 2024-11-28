@@ -19,7 +19,7 @@ public class PanelWindow extends JPanel {
     public void createPanelWindow1(){
         this.setLayoutManager(new FlowLayout(FlowLayout.CENTER));
         JLabel label = new JLabel("Ficha de Avaliação", JLabel.CENTER);
-        label.setForeground(new Color(246, 2, 2));
+        label.setForeground(Color.RED);
         this.add(label);
         this.setVisible(true);
     }
@@ -52,17 +52,18 @@ public class PanelWindow extends JPanel {
         this.setVisible(true);
     }
 
-    public void createPanelWindow3(){
+    public void createTextAreaPanel(){
         this.setLayoutManager(new FlowLayout(FlowLayout.CENTER));
 
-        JTextArea textArea = new JTextArea("", 10, 53);
+        JTextArea textArea = new JTextArea("", 8, 53);
         JScrollPane scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         this.add(scrollPane);
         this.setVisible(true);
     }
 
-    public void createPanelWindow4(){
+    public void createAreaPanel(){
         this.setLayoutManager(new GridLayout(2, 2, 10, 20));
+        this.setMinimumSize(new Dimension(600, 100));
         JLabel label1 = new JLabel("Interesse:");
         label1.setLayout(new FlowLayout(FlowLayout.LEFT));
 
@@ -74,10 +75,12 @@ public class PanelWindow extends JPanel {
 
         String[] comboBoxData1 = {"Desenvolvedor"};
         JComboBox<String> comboBox1 = new JComboBox<String>(comboBoxData1);
+        comboBox1.setForeground(Color.RED);
         JScrollPane scrollPane1 = new JScrollPane(comboBox1);
 
         String[] comboBoxData2 = {"Programação"};
         JComboBox<String> comboBox2 = new JComboBox<String>(comboBoxData2);
+        comboBox2.setForeground(Color.BLUE);
         JScrollPane scrollPane2 = new JScrollPane(comboBox2);
 
         this.add(scrollPane1);
@@ -85,8 +88,9 @@ public class PanelWindow extends JPanel {
     }
 
     public void createPanelWindow5(){
-        this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 55));
+        this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 10));
         this.setBackground(new Color(48, 210, 27));
+        this.setMaximumSize(new Dimension(600, 10));
         PanelWindow buttonPanel = new PanelWindow(new GridLayout(1, 5, 10, 0));
         buttonPanel.setBackground(new Color(48, 210, 27));
         JButton button1 = new JButton("Salvar");
