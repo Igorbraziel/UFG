@@ -18,16 +18,14 @@ public class PanelWindow extends JPanel {
 
     public void createPanelWindow1(){
         this.setLayoutManager(new FlowLayout(FlowLayout.CENTER));
-        this.setSize(600, 50);
         JLabel label = new JLabel("Ficha de Avaliação", JLabel.CENTER);
-        label.setSize(600, 50);
+        label.setForeground(new Color(246, 2, 2));
         this.add(label);
         this.setVisible(true);
     }
 
     public void createPanelWindow2(){
         this.setLayoutManager(new GridLayout(1, 2));
-        this.setSize(600, 150);
 
         PanelWindow newPanel1 = new PanelWindow(new GridLayout(3, 1));
         JLabel label1 = new JLabel("Código:", JLabel.LEFT);
@@ -56,12 +54,53 @@ public class PanelWindow extends JPanel {
 
     public void createPanelWindow3(){
         this.setLayoutManager(new FlowLayout(FlowLayout.CENTER));
-        this.setSize(600, 200);
 
-        JTextArea textArea = new JTextArea("", 5, 50);
+        JTextArea textArea = new JTextArea("", 10, 53);
         JScrollPane scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         this.add(scrollPane);
         this.setVisible(true);
+    }
+
+    public void createPanelWindow4(){
+        this.setLayoutManager(new GridLayout(2, 2, 10, 20));
+        JLabel label1 = new JLabel("Interesse:");
+        label1.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        JLabel label2 = new JLabel("Atuação:");
+        label2.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+        this.add(label1);
+        this.add(label2);
+
+        String[] comboBoxData1 = {"Desenvolvedor"};
+        JComboBox<String> comboBox1 = new JComboBox<String>(comboBoxData1);
+        JScrollPane scrollPane1 = new JScrollPane(comboBox1);
+
+        String[] comboBoxData2 = {"Programação"};
+        JComboBox<String> comboBox2 = new JComboBox<String>(comboBoxData2);
+        JScrollPane scrollPane2 = new JScrollPane(comboBox2);
+
+        this.add(scrollPane1);
+        this.add(scrollPane2);
+    }
+
+    public void createPanelWindow5(){
+        this.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 55));
+        this.setBackground(new Color(48, 210, 27));
+        PanelWindow buttonPanel = new PanelWindow(new GridLayout(1, 5, 10, 0));
+        buttonPanel.setBackground(new Color(48, 210, 27));
+        JButton button1 = new JButton("Salvar");
+        JButton button2 = new JButton("Anterior");
+        JButton button3 = new JButton("Próximo");
+        JButton button4 = new JButton("Novo");
+        JButton button5 = new JButton("Cancelar");
+
+        buttonPanel.add(button1);
+        buttonPanel.add(button2);
+        buttonPanel.add(button3);
+        buttonPanel.add(button4);
+        buttonPanel.add(button5);
+        this.add(buttonPanel);
     }
 
     public LayoutManager getLayoutManager() {
