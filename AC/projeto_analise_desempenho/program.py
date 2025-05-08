@@ -14,6 +14,15 @@ def is_int(string):
     return True
   except ValueError:
     return False
+  
+"""
+Ideia do projeto:
+O presente projeto teve como ideia principal desenvolver um programa capaz de calcular taxa de
+transferência, latência estimada e largura de banda efetiva em sistemas
+computacionais. Essas métricas são fundamentais para avaliar o desempenho de
+barramentos e interfaces de comunicação, especialmente em arquiteturas com múltiplos
+dispositivos conectados.
+"""
 
 while True:  
   try:
@@ -70,9 +79,6 @@ while True:
     print()
     
     print("Ciclos por Transferência:", cycles_per_transfer)
-    print("Quanto maior o número de ciclos por transferência, menor é a taxa de transferência efetiva.")
-    print("A CPU precisa esperar muitos ciclos para acessar a memória, isso reduz sua eficiência.")
-    print("Mais ciclos por transferência implicam em maior latência na comunicação entre os dispositivos.")
     print()
     
     print("Largura de Banda Efetiva (considerando conflitos e atrasos):", round(calculator.effective_bandwidth(data_bus_width, bus_frequency, number_of_devices), 2), "GB/s")
@@ -82,3 +88,14 @@ while True:
     print("-" * 80)
     print(e)
     print("-" * 80)
+
+"""
+Uso real:
+Acredito que é necessário conhecer essas métricas fundamentais de 
+hardware e como elas impactam no funcionamento de um software,
+em um cenário real é extremamente importante escolher o melhor conjuto de métricas
+para se adequar a um problema e garantir um melhor desempenho.
+O programa pode ser utilizado para atingir esses objetivos,
+o usuário pode testar várias combinações das métricas para que no final
+ele escolha da melhor maneira com base nos resultados finais dos cálculos realizados.
+"""
